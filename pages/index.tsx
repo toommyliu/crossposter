@@ -12,6 +12,7 @@ export async function getServerSideProps() {
 	const tumblrUser: UserInfo | null = await tumblr
 		.userInfo()
 		?.catch(() => null);
+
 	return {
 		props: {
 			tumblrUser,
