@@ -41,10 +41,16 @@ export default function RedditForm() {
 					setTime(Date.now());
 					setLoading(true);
 					setUsername(username);
-					const posts = await makeRequest(username);
-					console.log(posts);
-					setLoading(false);
-					setPosts(posts);
+					try {
+						const posts = await makeRequest(username);
+						console.log(posts);
+						setPosts(posts);
+					} catch (e) {
+						const error = e as Error;
+						console.log(error);
+					} finally {
+						setLoading(false);
+					}
 				})}
 			>
 				<TextInput
