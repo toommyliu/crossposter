@@ -6,7 +6,7 @@ export async function makeRequest(username: string) {
 	// array of media
 	const posts: Post[] = [];
 
-	let url = `https://reddit.com/user/${username}.json`;
+	let url = `https://www.reddit.com/user/${username}.json`;
 
 	const request = async (url: string, after?: string) => {
 		console.log(
