@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import type { Post } from "./stores/store";
 
@@ -6,7 +6,7 @@ export async function makeRequest(username: string) {
 	// array of media
 	const posts: Post[] = [];
 
-	let url = `https://reddit.com/u/${username}.json`;
+	let url = `https://reddit.com/user/${username}.json`;
 
 	const request = async (url: string, after?: string) => {
 		console.log(
@@ -15,7 +15,9 @@ export async function makeRequest(username: string) {
 
 		await new Promise((resolve) => setTimeout(resolve, 7_500));
 
-		const json: JSONResponse = await fetch(`${url}?after=${after}`)
+		const json: JSONResponse = await fetch(
+			`${url}${after ? `?after=${after}` : ""}`
+		)
 			.then((res) => res.json())
 			.catch(() => null);
 

@@ -42,6 +42,7 @@ export default function RedditForm() {
 					setLoading(true);
 					setUsername(username);
 					const posts = await makeRequest(username);
+					console.log(posts);
 					setLoading(false);
 					setPosts(posts);
 				})}
