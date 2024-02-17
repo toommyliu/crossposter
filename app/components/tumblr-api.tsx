@@ -1,6 +1,8 @@
+"use client";
+
 import { Box, Button, Group, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { store } from "../../store";
+import { useStore } from "@/lib/providers/StoreProvider";
 import { parse } from "dotenv";
 
 type EnvValues = {
@@ -10,7 +12,7 @@ type EnvValues = {
 	TUMBLR_TOKEN_SECRET: string;
 };
 
-export default function ApiForm() {
+export default function TumblrApiForm() {
 	const form = useForm({
 		initialValues: {
 			consumerKey: "",
@@ -30,8 +32,10 @@ export default function ApiForm() {
 		},
 	});
 
-	const tumblrCfg = store((state) => state.tumblrCfg);
-	const setTumblrCfg = store((state) => state.setTumblrCfg);
+	const { tumblrCfg, setTumblrCfg } = useStore((store) => ({
+		tumblrCfg: store.tumblrCfg,
+		setTumblrCfg: store.setTumblrCfg,
+	}));
 
 	const handleSubmit = async () => {
 		setTumblrCfg(form.values);
@@ -59,36 +63,38 @@ export default function ApiForm() {
 	};
 
 	return (
-		<Box maw={340} mx="auto">
-			<form onSubmit={form.onSubmit(handleSubmit)}>
-				<TextInput
-					withAsterisk
-					label="Consumer key"
-					{...form.getInputProps("consumerKey")}
-				/>
-				<TextInput
-					withAsterisk
-					label="Consumer secret"
-					{...form.getInputProps("consumerSecret")}
-				/>
-				<TextInput
-					withAsterisk
-					label="Token"
-					{...form.getInputProps("token")}
-				/>
-				<TextInput
-					withAsterisk
-					label="Token secret"
-					{...form.getInputProps("tokenSecret")}
-				/>
+		<>
+			<Box maw={340} mx="auto">
+				<form onSubmit={form.onSubmit(handleSubmit)}>
+					<TextInput
+						withAsterisk
+						label="Consumer key"
+						{...form.getInputProps("consumerKey")}
+					/>
+					<TextInput
+						withAsterisk
+						label="Consumer secret"
+						{...form.getInputProps("consumerSecret")}
+					/>
+					<TextInput
+						withAsterisk
+						label="Token"
+						{...form.getInputProps("token")}
+					/>
+					<TextInput
+						withAsterisk
+						label="Token secret"
+						{...form.getInputProps("tokenSecret")}
+					/>
 
-				<Group mt="md">
-					<Button onClick={async () => void handlePaste()}>
-						Paste from clipboard
-					</Button>
-					<Button type="submit">Submit</Button>
-				</Group>
-			</form>
-		</Box>
+					<Group mt="md">
+						<Button onClick={async () => void handlePaste()}>
+							Paste from clipboard
+						</Button>
+						<Button type="submit">Submit</Button>
+					</Group>
+				</form>
+			</Box>
+		</>
 	);
 }
