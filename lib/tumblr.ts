@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "tumblr.js";
+import { createClient as createTumblrClient } from "tumblr.js";
 
 export type TumblrUser = {
 	user: {
@@ -14,13 +14,30 @@ export type TumblrUser = {
 	};
 };
 
+export async function createClient(
+	consumerKey: string,
+	consumerSecret: string,
+	token: string,
+	tokenSecret: string
+) {
+	return createTumblrClient({
+		consumer_key: consumerKey,
+		consumer_secret: consumerSecret,
+		token: token,
+		token_secret: tokenSecret,
+	});
+}
+
+export async function createPost() {
+}
+
 export async function getUserInfo(
 	consumerKey: string,
 	consumerSecret: string,
 	token: string,
 	tokenSecret: string
 ): Promise<TumblrUser | null> {
-	const client = createClient({
+	const client = await createTumblrClient({
 		consumer_key: consumerKey,
 		consumer_secret: consumerSecret,
 		token: token,
@@ -32,3 +49,4 @@ export async function getUserInfo(
 		?.catch(() => null);
 	return res;
 }
+

@@ -89,9 +89,9 @@ export default function TumblrApiForm() {
 
 					<Group mt="md">
 						<Button onClick={async () => void handlePaste()}>
-							Paste from clipboard
+							Paste
 						</Button>
-						<Button type="submit">Submit</Button>
+						<Button type="submit">Create client</Button>
 					</Group>
 				</form>
 			</Box>

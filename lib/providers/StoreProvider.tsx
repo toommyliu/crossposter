@@ -24,11 +24,11 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
 	);
 };
 
-export const useStore = <T,>(selector: (store: StoreState) => T): T => {
+export function useStore<T>(selector: (store: StoreState) => T): T {
 	const storeContext = useContext(StoreContext);
 
 	if (!storeContext) {
-		throw new Error(`useStore must be use within StoreContext`);
+		throw new Error("useStore must be use within StoreContext!");
 	}
 
 	return useZustandStore(storeContext, selector);

@@ -7,13 +7,18 @@ type TumblrCfg = {
 	tokenSecret: string | null;
 };
 
+export type Post = {
+	url: string;
+	download: boolean;
+}
+
 export type StoreState = {
 	blog: string;
 	username: string;
 	setBlog: (blog: string) => void;
 	setUsername: (username: string) => void;
-	posts: string[];
-	setPosts: (posts: string[]) => void;
+	posts: Post[];
+	setPosts: (posts: Post[]) => void;
 	tumblrCfg: TumblrCfg;
 	setTumblrCfg: (cfg: TumblrCfg) => void;
 };

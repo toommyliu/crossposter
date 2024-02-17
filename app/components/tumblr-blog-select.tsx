@@ -2,8 +2,8 @@
 
 import { useStore } from "@/lib/providers/StoreProvider";
 import { getUserInfo } from "@/lib/tumblr";
+import { Button, Select } from "@mantine/core";
 import { useState } from "react";
-import { Select } from "@mantine/core";
 
 export default function TumblrBlogSelect() {
 	const [blogs, setBlogs] = useState<string[]>([]);
@@ -32,13 +32,14 @@ export default function TumblrBlogSelect() {
 
 		if (res?.user) {
 			const { user } = res;
+			setBlog(user.blogs[0].name);
 			setBlogs(user.blogs.map((blog) => blog.name));
 		}
 	}
 
 	if (!blog && blogs.length === 0) {
 		return (
-			<button onClick={async () => await loadInfo()}>load blogs</button>
+			<Button onClick={async () => await loadInfo()}>Load Blogs</Button>
 		);
 	}
 
@@ -46,12 +47,10 @@ export default function TumblrBlogSelect() {
 		<Select
 			label="Tumblr blog to post to"
 			defaultValue={blogs[0]}
+			allowDeselect={false}
 			data={blogs}
 			onChange={(value) => {
-				if (value) {
-					setBlog(value);
-					console.log("value", value);
-				}
+				if (value) setBlog(value);
 			}}
 		/>
 	);

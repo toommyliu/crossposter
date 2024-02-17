@@ -1,8 +1,10 @@
 "use server";
 
+import type { Post } from "./stores/store";
+
 export async function makeRequest(username: string) {
 	// array of media
-	const posts: string[] = [];
+	const posts: Post[] = [];
 
 	let url = `https://reddit.com/u/${username}.json`;
 
@@ -17,15 +19,15 @@ export async function makeRequest(username: string) {
 			.then((res) => res.json())
 			.catch(() => null);
 
-		if (json) {
+		if (json?.data?.children?.length > 0) {
 			json.data.children.forEach((post) => {
 				// TODO: add mp4s?
 				if (post.data.post_hint === "image") {
-					posts.push(post.data.url);
+					posts.push({ url: post.data.url, download: true });
 				}
 			});
 
-			if (json.data.after) {
+			if (json?.data?.after) {
 				await request(url, json.data.after);
 			}
 		}
