@@ -33,7 +33,7 @@ export function initStore(): StoreState {
 		setUsername: (username) => null,
 		setPosts: (posts) => null,
 		setTumblrCfg: (cfg) => null,
-	} as const;
+	}; 
 }
 
 export const createStore = (initState: StoreState = initStore()) => {
