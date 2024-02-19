@@ -1,16 +1,18 @@
 "use server";
 
 import { createClient } from "tumblr.js";
-import { NpfPostParams } from "tumblr.js/types/types";
+import type { NpfPostParams } from "tumblr.js/types/types";
+import { parseConfig } from "./utils";
+import { Post } from "./stores/store";
 
-export async function createPost(
-	blog: string,
-	post: {
-		url: string;
-		title?: string;
-	},
-	tumblrCfg: TumblrCfg
-) {
+export async function getUserInfo(tumblrCfg: Required<TumblrCfg>) {
+	const auth = parseConfig(tumblrCfg);
+	const client = await createClient(auth);
+
+	return client.userInfo()?.catch(() => null) as Promise<TumblrUser | null>;
+}
+
+export async function createPost(blog: string, post: Post, tumblrCfg: TumblrCfg) {
 	const client = await createClient({
 		consumer_key: tumblrCfg.consumerKey as string,
 		consumer_secret: tumblrCfg.consumerSecret as string,
@@ -37,25 +39,6 @@ export async function createPost(
 	} satisfies NpfPostParams;
 
 	return client.createPost(blog, params);
-}
-
-export async function getUserInfo(
-	consumerKey: string,
-	consumerSecret: string,
-	token: string,
-	tokenSecret: string
-): Promise<TumblrUser | null> {
-	const client = await createClient({
-		consumer_key: consumerKey,
-		consumer_secret: consumerSecret,
-		token: token,
-		token_secret: tokenSecret,
-	});
-
-	const res: Promise<TumblrUser | null> = await client
-		.userInfo()
-		?.catch(() => null);
-	return res;
 }
 
 export type TumblrCfg = {

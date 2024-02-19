@@ -3,7 +3,6 @@
 import type { Post } from "./stores/store";
 
 export async function makeRequest(username: string) {
-	// array of media
 	const posts: Post[] = [];
 
 	let url = `https://www.reddit.com/user/${username}.json`;
@@ -25,7 +24,11 @@ export async function makeRequest(username: string) {
 			json.data.children.forEach((post) => {
 				// TODO: add mp4s?
 				if (post.data.post_hint === "image") {
-					posts.push({ url: post.data.url, download: true });
+					posts.push({
+						url: post.data.url,
+						title: post.data.title,
+						download: true,
+					});
 				}
 			});
 
@@ -36,9 +39,6 @@ export async function makeRequest(username: string) {
 	};
 
 	await request(url);
-
-	console.log("done querying!");
-
 	return posts;
 }
 

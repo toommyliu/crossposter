@@ -3,6 +3,7 @@ import type { TumblrCfg } from "../tumblr";
 
 export type Post = {
 	url: string;
+	title?: string | null;
 	download: boolean;
 }
 
