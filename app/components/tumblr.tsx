@@ -112,12 +112,7 @@ export function TumblrSelect() {
 
 	useEffect(() => {
 		async function loadInfo() {
-			const res = await getUserInfo(
-				tumblrCfg!.consumerKey as string,
-				tumblrCfg!.consumerSecret as string,
-				tumblrCfg!.token as string,
-				tumblrCfg!.tokenSecret as string
-			);
+			const res = await getUserInfo(tumblrCfg);
 
 			if (res?.user) {
 				const { user } = res;
