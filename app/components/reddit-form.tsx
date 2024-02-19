@@ -61,7 +61,7 @@ export default function RedditForm() {
 				<Group mt="md">
 					<Button type="submit">Submit</Button>
 					<Button onClick={async () => await crosspost()}>
-						Download selected
+						Crosspost
 					</Button>
 				</Group>
 			</form>
