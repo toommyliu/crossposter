@@ -1,9 +1,12 @@
 "use client";
 
-import { Box, Button, Group, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { useStore } from "@/lib/providers/StoreProvider";
+import { getUserInfo } from "@/lib/tumblr";
+import { isTumblrCfgValid } from "@/lib/utils";
+import { Box, Button, Group, Select, TextInput } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import { parse } from "dotenv";
+import { useEffect, useState } from "react";
 
 type EnvValues = {
 	TUMBLR_CONSUMER_KEY: string;
@@ -12,7 +15,7 @@ type EnvValues = {
 	TUMBLR_TOKEN_SECRET: string;
 };
 
-export default function TumblrApiForm() {
+export function TumblrForm() {
 	const form = useForm({
 		initialValues: {
 			consumerKey: "",
@@ -96,5 +99,51 @@ export default function TumblrApiForm() {
 				</form>
 			</Box>
 		</>
+	);
+}
+
+export function TumblrSelect() {
+	// user blogs
+	const [blogs, setBlogs] = useState<string[]>([]);
+	// selected blog
+	const setBlog = useStore((store) => store.setBlog);
+
+	const tumblrCfg = useStore((store) => store.tumblrCfg);
+
+	useEffect(() => {
+		async function loadInfo() {
+			const res = await getUserInfo(
+				tumblrCfg!.consumerKey as string,
+				tumblrCfg!.consumerSecret as string,
+				tumblrCfg!.token as string,
+				tumblrCfg!.tokenSecret as string
+			);
+
+			if (res?.user) {
+				const { user } = res;
+				setBlog(user.blogs[0].name);
+				setBlogs(user.blogs.map((blog) => blog.name));
+			}
+		}
+
+		if (isTumblrCfgValid(tumblrCfg)) {
+			loadInfo();
+		}
+	}, [tumblrCfg, setBlog]);
+
+	if (!isTumblrCfgValid(tumblrCfg)) {
+		return null;
+	}
+
+	return (
+		<Select
+			label="Tumblr blog to post to"
+			defaultValue={blogs[0]}
+			allowDeselect={false}
+			data={blogs}
+			onChange={(value) => {
+				if (value) setBlog(value);
+			}}
+		/>
 	);
 }

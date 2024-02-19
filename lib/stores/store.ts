@@ -1,11 +1,5 @@
 import { createStore as createZustandStore } from "zustand/vanilla";
-
-type TumblrCfg = {
-	consumerKey: string | null;
-	consumerSecret: string | null;
-	token: string | null;
-	tokenSecret: string | null;
-};
+import type { TumblrCfg } from "../tumblr";
 
 export type Post = {
 	url: string;

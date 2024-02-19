@@ -1,8 +1,6 @@
 import { Center, Container, Stack } from "@mantine/core";
-import RedditForm from "./components/reddit-form";
-import TumblrApiForm from "./components/tumblr-api";
-import TumblrBlogSelect from "./components/tumblr-blog-select";
-import PostGrid from "./components/posts";
+import { RedditForm, PostGrid } from "./components/reddit";
+import { TumblrForm, TumblrSelect } from "./components/tumblr";
 
 export default async function RootPage() {
 	return (
@@ -10,8 +8,8 @@ export default async function RootPage() {
 			<Container>
 				<Center>
 					<Stack py={50}>
-						<TumblrApiForm />
-						<TumblrBlogSelect />
+						<TumblrForm />
+						<TumblrSelect />
 						<RedditForm />
 					</Stack>
 				</Center>
