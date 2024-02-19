@@ -3,7 +3,11 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		remotePatterns: ["i.redd.it"],
+		remotePatterns: [
+			{
+				hostname: "i.redd.it",
+			},
+		],
 	},
 };
 
