@@ -59,6 +59,12 @@ export function TumblrForm() {
 			form.setFieldValue("token", res.TUMBLR_TOKEN);
 			form.setFieldValue("tokenSecret", res.TUMBLR_TOKEN_SECRET);
 
+			notifications.show({
+				color: "green",
+				title: "Success",
+				message: "Pasted credentials from clipboard.",
+			});
+
 			// todo: clear clipboard data after pasting for safety?
 		} else {
 			notifications.show({

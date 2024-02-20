@@ -7,14 +7,13 @@ import { parseConfig } from "./utils";
 
 export async function getUserInfo(tumblrCfg: Required<TumblrCfg>) {
 	const auth = parseConfig(tumblrCfg);
-	const client = await createClient(auth);
-
+	const client = createClient(auth);
 	return client.userInfo()?.catch(() => null) as Promise<TumblrUser | null>;
 }
 
 export async function createPost(blog: string, post: Post, tumblrCfg: TumblrCfg) {
 	const auth = parseConfig(tumblrCfg);
-	const client = await createClient(auth);
+	const client = createClient(auth);
 
 	console.log(`${blog}: ${post.url}`);
 
