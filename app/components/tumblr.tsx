@@ -35,10 +35,7 @@ export function TumblrForm() {
 		},
 	});
 
-	const { tumblrCfg, setTumblrCfg } = useStore((store) => ({
-		tumblrCfg: store.tumblrCfg,
-		setTumblrCfg: store.setTumblrCfg,
-	}));
+	const setTumblrCfg = useStore((store) => store.setTumblrCfg);
 
 	const handleSubmit = async () => {
 		setTumblrCfg(form.values);

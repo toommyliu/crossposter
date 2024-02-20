@@ -5,7 +5,7 @@ import type { Post } from "./stores/store";
 export async function makeRequest(username: string) {
 	const posts: Post[] = [];
 
-	let url = `https://www.reddit.com/user/${username}.json`;
+	const url = `https://www.reddit.com/user/${username}.json`;
 
 	const request = async (url: string, after?: string) => {
 		console.log(

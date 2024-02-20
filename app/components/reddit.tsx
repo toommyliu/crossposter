@@ -130,7 +130,6 @@ export function RedditForm() {
 					setPosts([]);
 					try {
 						const posts = await makeRequest(username);
-						console.log(posts);
 						setPosts(posts);
 					} catch (e) {
 						const error = e as Error;

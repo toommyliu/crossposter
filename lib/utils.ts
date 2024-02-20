@@ -1,6 +1,6 @@
 import type { TumblrCfg } from "./tumblr";
 
-export function isTumblrCfgValid(cfg: TumblrCfg): cfg is Required<TumblrCfg> {
+export function isTumblrCfgValid(cfg: TumblrCfg): cfg is ValidTumblrCfg {
 	return (
 		cfg.consumerKey !== null &&
 		cfg.consumerSecret !== null &&
@@ -17,3 +17,10 @@ export function parseConfig(cfg: TumblrCfg) {
 		token_secret: cfg.tokenSecret!,
 	};
 }
+
+type ValidTumblrCfg = {
+	consumerKey: string;
+	consumerSecret: string;
+	token: string;
+	tokenSecret: string;
+};
