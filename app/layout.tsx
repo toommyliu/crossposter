@@ -1,7 +1,9 @@
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 
 import { StoreProvider } from "@/lib/providers/StoreProvider";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 
 export const metadata = {
 	title: "Reddit to Tumblr",
@@ -24,6 +26,7 @@ export default function RootLayout({
 			</head>
 			<body>
 				<MantineProvider>
+					<Notifications position="top-right" />
 					<StoreProvider>{children}</StoreProvider>
 				</MantineProvider>
 			</body>

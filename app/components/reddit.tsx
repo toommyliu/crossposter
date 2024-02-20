@@ -17,6 +17,7 @@ import {
 import { useForm } from "@mantine/form";
 import Image from "next/image";
 import { useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 type PostProps = {
 	post: Post;

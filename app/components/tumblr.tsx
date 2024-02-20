@@ -7,6 +7,7 @@ import { Box, Button, Group, Select, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { parse } from "dotenv";
 import { useEffect, useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 type EnvValues = {
 	TUMBLR_CONSUMER_KEY: string;
@@ -59,47 +60,53 @@ export function TumblrForm() {
 			form.setFieldValue("tokenSecret", res.TUMBLR_TOKEN_SECRET);
 
 			// todo: clear clipboard data after pasting for safety?
+		} else {
+			notifications.show({
+				color: "red",
+				title: "Error",
+				message:
+					"Clipboard contents don't seem to match the expected format.",
+			});
 		}
 	};
 
 	return (
-		<>
-			<Box maw={340} mx="auto">
-				<form onSubmit={form.onSubmit(handleSubmit)}>
-					<TextInput
-						withAsterisk
-						label="Consumer key"
-						{...form.getInputProps("consumerKey")}
-					/>
-					<TextInput
-						withAsterisk
-						label="Consumer secret"
-						{...form.getInputProps("consumerSecret")}
-					/>
-					<TextInput
-						withAsterisk
-						label="Token"
-						{...form.getInputProps("token")}
-					/>
-					<TextInput
-						withAsterisk
-						label="Token secret"
-						{...form.getInputProps("tokenSecret")}
-					/>
+		<Box maw={340} mx="auto">
+			<form onSubmit={form.onSubmit(handleSubmit)}>
+				<TextInput
+					withAsterisk
+					label="Consumer key"
+					{...form.getInputProps("consumerKey")}
+				/>
+				<TextInput
+					withAsterisk
+					label="Consumer secret"
+					{...form.getInputProps("consumerSecret")}
+				/>
+				<TextInput
+					withAsterisk
+					label="Token"
+					{...form.getInputProps("token")}
+				/>
+				<TextInput
+					withAsterisk
+					label="Token secret"
+					{...form.getInputProps("tokenSecret")}
+				/>
 
-					<Group mt="md">
-						<Button onClick={async () => void handlePaste()}>
-							Paste
-						</Button>
-						<Button type="submit">Create client</Button>
-					</Group>
-				</form>
-			</Box>
-		</>
+				<Group mt="md">
+					<Button onClick={async () => void handlePaste()}>
+						Paste
+					</Button>
+					<Button type="submit">Create client</Button>
+				</Group>
+			</form>
+		</Box>
 	);
 }
 
 export function TumblrSelect() {
+	const [authed, setAuthed] = useState(false);
 	// user blogs
 	const [blogs, setBlogs] = useState<string[]>([]);
 	// selected blog
@@ -115,6 +122,20 @@ export function TumblrSelect() {
 				const { user } = res;
 				setBlog(user.blogs[0].name);
 				setBlogs(user.blogs.map((blog) => blog.name));
+				setAuthed(true);
+				notifications.show({
+					color: "green",
+					title: "Success",
+					message: `Authenticated as ${user.name}!`,
+				});
+			} else {
+				setAuthed(false);
+				notifications.show({
+					color: "red",
+					title: "Error",
+					message:
+						"Failed to authenticate, your credentials may be invalid.",
+				});
 			}
 		}
 
@@ -123,7 +144,7 @@ export function TumblrSelect() {
 		}
 	}, [tumblrCfg, setBlog]);
 
-	if (!isTumblrCfgValid(tumblrCfg)) {
+	if (!isTumblrCfgValid(tumblrCfg) || !authed) {
 		return null;
 	}
 
