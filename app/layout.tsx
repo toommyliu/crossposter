@@ -26,7 +26,7 @@ export default function RootLayout({
 			</head>
 			<body>
 				<MantineProvider>
-					<Notifications position="top-right" />
+					<Notifications position="top-left" />
 					<StoreProvider>{children}</StoreProvider>
 				</MantineProvider>
 			</body>

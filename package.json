@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ffmpeg/core-mt": "0.12.4",
+    "@ffmpeg/ffmpeg": "0.12.6",
+    "@ffmpeg/util": "0.12.1",
     "@mantine/core": "7.5.1",
     "@mantine/form": "^7.5.2",
     "@mantine/hooks": "7.5.1",
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "20.8.10",
+    "@types/oauth-signature": "^1.5.2",
     "@types/react": "18.2.35",
     "@types/react-dom": "18.2.14",
     "eslint": "8.53.0",

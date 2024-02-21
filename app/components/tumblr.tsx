@@ -43,10 +43,23 @@ export function TumblrForm() {
 	};
 
 	const handlePaste = async () => {
-		const content = await navigator.clipboard.read();
+		const content = await navigator.clipboard.read().catch(() => {
+			notifications.show({
+				color: "red",
+				title: "Error",
+				message:
+					"Failed to read clipboard contents. Are permissions given?",
+			});
+			return null;
+		});
+
+		if (!content) {
+			return;
+		}
+
 		const text = await (await content[0].getType("text/plain")).text();
 
-		const res: EnvValues = parse(text);
+		const res = parse<EnvValues>(text);
 
 		if (
 			res?.TUMBLR_CONSUMER_KEY?.length === 50 &&
@@ -58,12 +71,6 @@ export function TumblrForm() {
 			form.setFieldValue("consumerSecret", res.TUMBLR_CONSUMER_SECRET);
 			form.setFieldValue("token", res.TUMBLR_TOKEN);
 			form.setFieldValue("tokenSecret", res.TUMBLR_TOKEN_SECRET);
-
-			notifications.show({
-				color: "green",
-				title: "Success",
-				message: "Pasted credentials from clipboard.",
-			});
 
 			// todo: clear clipboard data after pasting for safety?
 		} else {
@@ -132,7 +139,7 @@ export function TumblrSelect() {
 				notifications.show({
 					color: "green",
 					title: "Success",
-					message: `Authenticated as ${user.name}!`,
+					message: `Authenticated as Tumblr User: ${user.name}!`,
 				});
 			} else {
 				setAuthed(false);
