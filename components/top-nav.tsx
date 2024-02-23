@@ -305,10 +305,11 @@ export default function TopNav() {
 						</div>
 					)}
 				</div>
-				{/* <div className="flex-2 mx-5">
-				<ThemeController />
-				</div> */}
+				<div className="flex-2 mx-5">
+					<ThemeController />
+				</div>
 				<div className="flex-none gap-2">
+					
 					<div className="dropdown dropdown-end">
 						<div
 							tabIndex={0}
