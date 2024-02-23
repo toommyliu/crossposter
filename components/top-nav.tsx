@@ -7,6 +7,7 @@ import { type TumblrUser, getUserInfo } from "~/lib/tumblr";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { parse } from "dotenv";
+import { useStore } from "~/lib/providers/StoreProvider";
 
 type TumblrEnv = {
 	CONSUMER_KEY: string;
@@ -69,8 +70,8 @@ function TumblrModal() {
 		setTokenSecret(TOKEN_SECRET);
 	};
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 
 		for (let i = 1; i < 5; ++i) {
 			const input = document.querySelector(
@@ -230,6 +231,7 @@ export default function TopNav() {
 		null
 	);
 	const [user, setUser] = useState<TumblrUser["user"] | null>(null);
+	const setBlog = useStore((state) => state.setBlog);
 
 	useEffect(() => {
 		async function load() {
@@ -272,6 +274,11 @@ export default function TopNav() {
 		toast("goodbye!", { icon: "👋" });
 	};
 
+	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const blog = event.target.value;
+		setBlog(blog);
+	};
+
 	return (
 		<>
 			<TumblrModal />
@@ -280,7 +287,10 @@ export default function TopNav() {
 					<span className="text-xl font-bold mx-3">Crossposter</span>
 					{!!user && (
 						<div className="flex justify-center items-center mx-auto">
-							<select className="select select-bordered w-full max-w-xs select-sm">
+							<select
+								className="select select-bordered w-full max-w-xs select-sm"
+								onChange={handleChange}
+							>
 								{user.blogs.map((blog) => {
 									return (
 										<option
