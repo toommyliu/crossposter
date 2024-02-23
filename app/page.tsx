@@ -4,6 +4,7 @@ export default function RootPage() {
 	return (
 		<>
 			<TopNav />
+			<hr className='mb-10' />
 		</>
 	);
 }
