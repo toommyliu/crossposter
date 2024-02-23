@@ -52,6 +52,9 @@ function TumblrModal() {
 						setTokenSecret(value);
 						break;
 				}
+
+				// @ts-expect-error
+				input.value = "";
 			}
 		}
 
