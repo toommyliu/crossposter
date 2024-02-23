@@ -66,14 +66,15 @@ function TumblrModal() {
 		<dialog id="sign_in_modal" className="modal">
 			<div className="modal-box">
 				<h3 className="font-bold text-lg">Tumblr OAuth Connection</h3>
-				<div className="mt-5 space-y-5">
+				<hr className="mt-3" />
+				<div className="space-y-3">
 					<label className="form-control w-full max-w-xs">
 						<div className="label">
 							<span className="label-text">Consumer key</span>
 						</div>
 						<input
 							type="text"
-							className="input input-bordered w-full max-w-xs"
+							className="input input-bordered w-full max-w-xs input-sm"
 						/>
 					</label>
 					<label className="form-control w-full max-w-xs">
@@ -82,7 +83,7 @@ function TumblrModal() {
 						</div>
 						<input
 							type="text"
-							className="input input-bordered w-full max-w-xs"
+							className="input input-bordered w-full max-w-xs input-sm"
 						/>
 					</label>
 					<label className="form-control w-full max-w-xs">
@@ -91,7 +92,7 @@ function TumblrModal() {
 						</div>
 						<input
 							type="text"
-							className="input input-bordered w-full max-w-xs"
+							className="input input-bordered w-full max-w-xs input-sm"
 						/>
 					</label>
 					<label className="form-control w-full max-w-xs">
@@ -100,7 +101,7 @@ function TumblrModal() {
 						</div>
 						<input
 							type="text"
-							className="input input-bordered w-full max-w-xs"
+							className="input input-bordered w-full max-w-xs input-sm"
 						/>
 					</label>
 				</div>
