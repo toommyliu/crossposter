@@ -20,16 +20,21 @@ function MoonIcon() {
 }
 
 export default function ThemeController() {
-	const [theme] = useLocalStorage<string>('theme', 'light');
+	const [theme, setTheme] = useLocalStorage<string>('theme', 'light');
 
 	useEffect(() => {
 		document.querySelector('html')?.setAttribute('data-theme', theme);
+
 		return () => {};
 	}, [theme]);
 
+	const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setTheme(event.target.checked ? 'dark' : 'light');
+	};
+
 	return (
 		<label className="swap swap-rotate">
-			<input type="checkbox" className="theme-controller" value="dark" />
+			<input type="checkbox" className="theme-controller" value="dark" onChange={handleThemeChange} />
 			<MoonIcon />
 			<SunIcon />
 		</label>
