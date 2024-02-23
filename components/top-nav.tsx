@@ -6,7 +6,136 @@ import { useLocalStorage } from "usehooks-ts";
 import { type TumblrUser, getUserInfo } from "~/lib/tumblr";
 import Image from "next/image";
 
-// https://github.com/mantinedev/mantine/blob/0409b7b2c050e9103d333cf2ace5cb7ec6bb667f/packages/%40mantine/core/src/components/Avatar/AvatarPlaceholderIcon.tsx#L1
+function TumblrModal() {
+	const [consumerKey, setConsumerKey] = useLocalStorage<string | null>(
+		"consumer_key",
+		null
+	);
+	const [consumerSecret, setConsumerSecret] = useLocalStorage<string | null>(
+		"consumer_secret",
+		null
+	);
+	const [token, setToken] = useLocalStorage<string | null>("token", null);
+	const [tokenSecret, setTokenSecret] = useLocalStorage<string | null>(
+		"token_secret",
+		null
+	);
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		for (let i = 1; i < 5; ++i) {
+			const input = document.querySelector(
+				`#sign_in_modal > div > div > label:nth-child(${i}) > input`
+			);
+
+			if (input) {
+				// @ts-expect-error
+				const { value } = input;
+
+				switch (i) {
+					// consumer key
+					case 1:
+						setConsumerKey(value);
+						break;
+					// consumer secret
+					case 2:
+						setConsumerSecret(value);
+						break;
+					// token
+					case 3:
+						setToken(value);
+						break;
+					// token secret
+					case 4:
+						setTokenSecret(value);
+						break;
+				}
+			}
+		}
+
+		// @ts-expect-error
+		document!.getElementById("sign_in_modal")!.close();
+	};
+
+	return (
+		<dialog id="sign_in_modal" className="modal">
+			<div className="modal-box">
+				<h3 className="font-bold text-lg">Tumblr OAuth Connection</h3>
+				<div className="mt-5 space-y-5">
+					<label className="form-control w-full max-w-xs">
+						<div className="label">
+							<span className="label-text">Consumer key</span>
+						</div>
+						<input
+							type="text"
+							className="input input-bordered w-full max-w-xs"
+						/>
+					</label>
+					<label className="form-control w-full max-w-xs">
+						<div className="label">
+							<span className="label-text">Consumer secret</span>
+						</div>
+						<input
+							type="text"
+							className="input input-bordered w-full max-w-xs"
+						/>
+					</label>
+					<label className="form-control w-full max-w-xs">
+						<div className="label">
+							<span className="label-text">Token</span>
+						</div>
+						<input
+							type="text"
+							className="input input-bordered w-full max-w-xs"
+						/>
+					</label>
+					<label className="form-control w-full max-w-xs">
+						<div className="label">
+							<span className="label-text">Token secret</span>
+						</div>
+						<input
+							type="text"
+							className="input input-bordered w-full max-w-xs"
+						/>
+					</label>
+				</div>
+				<div className="mt-5">
+					<div>
+						<span className="italic">
+							Warning: All keys are stored locally!
+						</span>
+					</div>
+					<div>
+						<a
+							className="link"
+							onClick={() =>
+								window.open(
+									"https://api.tumblr.com/console/calls/user/info",
+									"",
+									"noreferrer noopener"
+								)
+							}
+						>
+							Need help?
+						</a>
+					</div>
+				</div>
+				<div className="modal-action">
+					<form method="dialog" onSubmit={handleSubmit}>
+						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+							✕
+						</button>
+						<button className="btn" type="submit">
+							Submit
+						</button>
+					</form>
+				</div>
+			</div>
+		</dialog>
+	);
+}
+
 function AvatarPlaceholder(props: React.ComponentPropsWithoutRef<"svg">) {
 	return (
 		<svg
@@ -69,88 +198,23 @@ export default function TopNav() {
 		return () => {};
 	}, [consumerKey, consumerSecret, token, tokenSecret]);
 
+	const handleSignOut = () => {
+		setConsumerKey(null);
+		setConsumerSecret(null);
+		setToken(null);
+		setTokenSecret(null);
+		setUser(null);
+	};
+
 	return (
 		<>
-			<dialog id="sign_in_modal" className="modal">
-				<div className="modal-box">
-					<h3 className="font-bold text-lg">
-						Tumblr OAuth Connection
-					</h3>
-					<div className="mt-5 space-y-5">
-						<label className="form-control w-full max-w-xs">
-							<div className="label">
-								<span className="label-text">Consumer key</span>
-							</div>
-							<input
-								type="text"
-								className="input input-bordered w-full max-w-xs"
-							/>
-						</label>
-						<label className="form-control w-full max-w-xs">
-							<div className="label">
-								<span className="label-text">
-									Consumer secret
-								</span>
-							</div>
-							<input
-								type="text"
-								className="input input-bordered w-full max-w-xs"
-							/>
-						</label>
-						<label className="form-control w-full max-w-xs">
-							<div className="label">
-								<span className="label-text">Token</span>
-							</div>
-							<input
-								type="text"
-								className="input input-bordered w-full max-w-xs"
-							/>
-						</label>
-						<label className="form-control w-full max-w-xs">
-							<div className="label">
-								<span className="label-text">Token secret</span>
-							</div>
-							<input
-								type="text"
-								className="input input-bordered w-full max-w-xs"
-							/>
-						</label>
-					</div>
-					<div className="mt-5">
-						<div>
-							<span className="italic">
-								Warning: All keys are stored locally!
-							</span>
-						</div>
-						<div>
-							<a
-								className="link"
-								onClick={() =>
-									window.open(
-										"https://api.tumblr.com/console/calls/user/info",
-										"",
-										"noreferrer noopener"
-									)
-								}
-							>
-								Need help?
-							</a>
-						</div>
-					</div>
-					<div className="modal-action">
-						<form method="dialog">
-							<button className="btn">Close</button>
-						</form>
-					</div>
-				</div>
-			</dialog>
-
+			<TumblrModal />
 			<div className="navbar">
 				<div className="flex-1">
 					<span className="text-xl font-bold mx-3">Crossposter</span>
 					{!!user && (
 						<div className="flex justify-center items-center mx-auto">
-							<select className="select select-bordered w-full max-w-xs">
+							<select className="select select-bordered w-full max-w-xs select-sm">
 								{user.blogs.map((blog) => {
 									return (
 										<option
@@ -167,7 +231,7 @@ export default function TopNav() {
 				</div>
 				{/* <div className="flex-2 mx-5">
 				<ThemeController />
-			</div> */}
+				</div> */}
 				<div className="flex-none gap-2">
 					<div className="dropdown dropdown-end">
 						<div
@@ -194,9 +258,16 @@ export default function TopNav() {
 							className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
 						>
 							{!!user ? (
-								<li>
-									<span>Hello, {user.name}</span>
-								</li>
+								<>
+									<li>
+										<span>{user.name}</span>
+									</li>
+									<li>
+										<span onClick={handleSignOut}>
+											Sign out
+										</span>
+									</li>
+								</>
 							) : (
 								<li>
 									<span
@@ -213,9 +284,6 @@ export default function TopNav() {
 									</span>
 								</li>
 							)}
-							<li>
-								<a>Delete keys</a>
-							</li>
 						</ul>
 					</div>
 				</div>
