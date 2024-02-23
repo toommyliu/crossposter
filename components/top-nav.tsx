@@ -5,6 +5,7 @@ import ThemeController from "./theme-controller";
 import { useLocalStorage } from "usehooks-ts";
 import { type TumblrUser, getUserInfo } from "~/lib/tumblr";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 function TumblrModal() {
 	const [consumerKey, setConsumerKey] = useLocalStorage<string | null>(
@@ -126,7 +127,7 @@ function TumblrModal() {
 						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
 							✕
 						</button>
-						<button className="btn" type="submit">
+						<button className="btn btn-primary" type="submit">
 							Submit
 						</button>
 					</form>
@@ -181,12 +182,18 @@ export default function TopNav() {
 			});
 
 			if (!data) {
+				toast(
+					"uh oh! failed to authenticate. are your credentials valid?",
+					{ icon: "🚨" }
+				);
 				// TODO: toast
 				return;
 			}
 
 			setUser(data.user);
-			console.log("data", data);
+			toast(`hello, ${data.user.name}!`, {
+				icon: "👋",
+			});
 		}
 
 		if (consumerKey && consumerSecret && token && tokenSecret) {
@@ -204,6 +211,8 @@ export default function TopNav() {
 		setToken(null);
 		setTokenSecret(null);
 		setUser(null);
+
+		toast("goodbye!", { icon: "👋" });
 	};
 
 	return (

@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 import { StoreProvider } from "~/lib/providers/StoreProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
 	title: "Crossposter",
@@ -21,6 +22,7 @@ export default function RootLayout({
 			</head>
 			<body>
 				<StoreProvider>{children}</StoreProvider>
+				<Toaster position="top-right"/>
 			</body>
 		</html>
 	);
