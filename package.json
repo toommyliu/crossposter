@@ -1,37 +1,39 @@
 {
-  "name": "crossposter",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@ffmpeg/core-mt": "0.12.4",
-    "@ffmpeg/ffmpeg": "0.12.6",
-    "@ffmpeg/util": "0.12.1",
-    "@uidotdev/usehooks": "^2.4.1",
-    "dotenv": "^16.4.4",
-    "next": "^14.1.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "tumblr.js": "^4.0.1",
-    "usehooks-ts": "^2.15.0",
-    "zustand": "^4.5.0"
-  },
-  "devDependencies": {
-    "@types/node": "20.8.10",
-    "@types/react": "18.2.35",
-    "@types/react-dom": "18.2.14",
-    "autoprefixer": "^10.4.17",
-    "daisyui": "latest",
-    "eslint": "8.53.0",
-    "eslint-config-next": "14.0.1",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "5.2.2"
-  }
+	"name": "crossposter",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@ffmpeg/core-mt": "0.12.4",
+		"@ffmpeg/ffmpeg": "0.12.6",
+		"@ffmpeg/util": "0.12.1",
+		"@uidotdev/usehooks": "^2.4.1",
+		"dotenv": "^16.4.4",
+		"next": "^14.1.0",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-hot-toast": "^2.4.1",
+		"tumblr.js": "^4.0.1",
+		"usehooks-ts": "^2.15.0",
+		"zustand": "^4.5.0"
+	},
+	"devDependencies": {
+		"@types/node": "20.8.10",
+		"@types/react": "18.2.35",
+		"@types/react-dom": "18.2.14",
+		"autoprefixer": "^10.4.17",
+		"daisyui": "latest",
+		"eslint": "8.53.0",
+		"eslint-config-next": "14.0.1",
+		"postcss": "^8.4.35",
+		"prettier": "^3.2.5",
+		"prettier-plugin-tailwindcss": "^0.5.11",
+		"tailwindcss": "^3.4.1",
+		"typescript": "5.2.2"
+	}
 }

@@ -18,7 +18,7 @@
 		"paths": {
 			"~/lib/*": ["lib/*"],
 			"~/components/*": ["components/*"],
-			"~/styles/*": ["styles/*"],
+			"~/styles/*": ["styles/*"]
 		},
 		"plugins": [
 			{

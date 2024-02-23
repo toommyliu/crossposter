@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { Post } from "./stores/store";
+import type { Post } from './stores/store';
 
 export async function makeRequest(username: string) {
 	const posts: Post[] = [];
@@ -8,22 +8,18 @@ export async function makeRequest(username: string) {
 	const url = `https://www.reddit.com/user/${username}.json`;
 
 	const request = async (url: string, after?: string) => {
-		console.log(
-			`making request to: ${url}${after ? `?after=${after}` : ""}`
-		);
+		console.log(`making request to: ${url}${after ? `?after=${after}` : ''}`);
 
 		await new Promise((resolve) => setTimeout(resolve, 7_500));
 
-		const json: JSONResponse = await fetch(
-			`${url}${after ? `?after=${after}` : ""}`
-		)
+		const json: JSONResponse = await fetch(`${url}${after ? `?after=${after}` : ''}`)
 			.then((res) => res.json())
 			.catch(() => null);
 
 		if (json?.data?.children?.length > 0) {
 			json.data.children.forEach((post) => {
 				// TODO: add mp4s?
-				if (post.data.post_hint === "image") {
+				if (post.data.post_hint === 'image') {
 					posts.push({
 						url: post.data.url,
 						title: post.data.title,

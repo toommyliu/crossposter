@@ -5,26 +5,26 @@ const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
-				hostname: "i.redd.it",
+				hostname: 'i.redd.it',
 			},
 			{
-				hostname: "assets.tumblr.com",
-			}
+				hostname: 'assets.tumblr.com',
+			},
 		],
 	},
 	// required for SharedArrayBuffer
 	async headers() {
 		return [
 			{
-				source: "/(.*)",
+				source: '/(.*)',
 				headers: [
 					{
-						key: "Cross-Origin-Embedder-Policy",
-						value: "require-corp",
+						key: 'Cross-Origin-Embedder-Policy',
+						value: 'require-corp',
 					},
 					{
-						key: "Cross-Origin-Opener-Policy",
-						value: "same-origin",
+						key: 'Cross-Origin-Opener-Policy',
+						value: 'same-origin',
 					},
 				],
 			},

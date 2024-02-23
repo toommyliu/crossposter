@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { createClient } from "tumblr.js";
+import { createClient } from 'tumblr.js';
 
 export async function getUserInfo(auth: TumblrCfg) {
 	const client = createClient({
@@ -47,7 +47,7 @@ export type TumblrUser = {
 					width: 64;
 					height: 64;
 					url: string;
-				}
+				},
 			];
 		}[];
 	};

@@ -1,4 +1,4 @@
-import { createStore as createZustandStore } from "zustand/vanilla";
+import { createStore as createZustandStore } from 'zustand/vanilla';
 
 export type Post = {
 	url: string;
@@ -17,8 +17,8 @@ export type StoreState = {
 
 export function initStore(): StoreState {
 	return {
-		blog: "",
-		username: "",
+		blog: '',
+		username: '',
 		posts: [],
 		setBlog: (blog) => null,
 		setUsername: (username) => null,

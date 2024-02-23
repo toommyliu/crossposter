@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { type ReactNode, createContext, useRef, useContext } from "react";
-import { type StoreApi, useStore as useZustandStore } from "zustand";
+import { type ReactNode, createContext, useRef, useContext } from 'react';
+import { type StoreApi, useStore as useZustandStore } from 'zustand';
 
-import { type StoreState, createStore, initStore } from "~/lib/stores/store";
+import { type StoreState, createStore, initStore } from '~/lib/stores/store';
 
 export const StoreContext = createContext<StoreApi<StoreState> | null>(null);
 
@@ -17,19 +17,15 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
 		storeRef.current = createStore(initStore());
 	}
 
-	return (
-		<StoreContext.Provider value={storeRef.current}>
-			{children}
-		</StoreContext.Provider>
-	);
+	return <StoreContext.Provider value={storeRef.current}>{children}</StoreContext.Provider>;
 };
 
 export function useStore<T>(selector: (store: StoreState) => T): T {
 	const storeContext = useContext(StoreContext);
 
 	if (!storeContext) {
-		throw new Error("useStore must be use within StoreContext!");
+		throw new Error('useStore must be use within StoreContext!');
 	}
 
 	return useZustandStore(storeContext, selector);
-};
+}
