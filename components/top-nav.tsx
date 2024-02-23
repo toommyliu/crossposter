@@ -79,9 +79,7 @@ export default function TopNav() {
 					<div className="mt-5 space-y-5">
 						<label className="form-control w-full max-w-xs">
 							<div className="label">
-								<span className="label-text">
-									Consumer key
-								</span>
+								<span className="label-text">Consumer key</span>
 							</div>
 							<input
 								type="text"
@@ -101,9 +99,7 @@ export default function TopNav() {
 						</label>
 						<label className="form-control w-full max-w-xs">
 							<div className="label">
-								<span className="label-text">
-									Token
-								</span>
+								<span className="label-text">Token</span>
 							</div>
 							<input
 								type="text"
@@ -112,9 +108,7 @@ export default function TopNav() {
 						</label>
 						<label className="form-control w-full max-w-xs">
 							<div className="label">
-								<span className="label-text">
-									Token secret
-								</span>
+								<span className="label-text">Token secret</span>
 							</div>
 							<input
 								type="text"
@@ -122,7 +116,7 @@ export default function TopNav() {
 							/>
 						</label>
 					</div>
-					<p className="mt-5">
+					<div className="mt-5">
 						<div>
 							<span className="italic">
 								Warning: All keys are stored locally!
@@ -142,7 +136,7 @@ export default function TopNav() {
 								Need help?
 							</a>
 						</div>
-					</p>
+					</div>
 					<div className="modal-action">
 						<form method="dialog">
 							<button className="btn">Close</button>
