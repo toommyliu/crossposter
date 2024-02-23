@@ -1,21 +1,9 @@
-import { Center, Container, Stack } from "@mantine/core";
-import { RedditForm, PostGrid } from "./components/reddit";
-import { TumblrForm, TumblrSelect } from "./components/tumblr";
+import TopNav from "~/components/top-nav";
 
-export default async function RootPage() {
-
+export default function RootPage() {
 	return (
 		<>
-			<Container>
-				<Center>
-					<Stack py={50}>
-						<TumblrForm />
-						<TumblrSelect />
-						<RedditForm />
-					</Stack>
-				</Center>
-			</Container>
-			<PostGrid />
+			<TopNav />
 		</>
 	);
 }

@@ -1,13 +1,9 @@
-import "@mantine/core/styles.css";
-import "@mantine/notifications/styles.css";
-
-import { StoreProvider } from "@/lib/providers/StoreProvider";
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { Notifications } from "@mantine/notifications";
+import "~/styles/globals.css";
+import { StoreProvider } from "~/lib/providers/StoreProvider";
 
 export const metadata = {
-	title: "Reddit to Tumblr",
-	description: "Crosspost Reddit posts to Tumblr blogs",
+	title: "Crossposter",
+	description: "Easily crosspost from Reddit to Tumblr",
 };
 
 export default function RootLayout({
@@ -18,17 +14,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<head>
-				<ColorSchemeScript />
 				<meta
 					name="viewport"
-					content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
+					content="initial-scale=1, width=device-width"
 				/>
 			</head>
 			<body>
-				<MantineProvider>
-					<Notifications position="top-left" />
-					<StoreProvider>{children}</StoreProvider>
-				</MantineProvider>
+				<StoreProvider>{children}</StoreProvider>
 			</body>
 		</html>
 	);

@@ -1,11 +1,10 @@
 import { createStore as createZustandStore } from "zustand/vanilla";
-import type { TumblrCfg } from "../tumblr";
 
 export type Post = {
 	url: string;
 	title?: string | null;
 	download: boolean;
-}
+};
 
 export type StoreState = {
 	blog: string;
@@ -14,8 +13,6 @@ export type StoreState = {
 	setUsername: (username: string) => void;
 	posts: Post[];
 	setPosts: (posts: Post[]) => void;
-	tumblrCfg: TumblrCfg;
-	setTumblrCfg: (cfg: TumblrCfg) => void;
 };
 
 export function initStore(): StoreState {
@@ -23,17 +20,10 @@ export function initStore(): StoreState {
 		blog: "",
 		username: "",
 		posts: [],
-		tumblrCfg: {
-			consumerKey: null,
-			consumerSecret: null,
-			token: null,
-			tokenSecret: null,
-		},
 		setBlog: (blog) => null,
 		setUsername: (username) => null,
 		setPosts: (posts) => null,
-		setTumblrCfg: (cfg) => null,
-	}; 
+	};
 }
 
 export const createStore = (initState: StoreState = initStore()) => {
@@ -42,6 +32,5 @@ export const createStore = (initState: StoreState = initStore()) => {
 		setBlog: (blog) => set({ blog }),
 		setUsername: (username) => set({ username }),
 		setPosts: (posts) => set({ posts }),
-		setTumblrCfg: (tumblrCfg) => set({ tumblrCfg }),
 	}));
 };

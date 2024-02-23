@@ -8,11 +8,8 @@ const nextConfig = {
 				hostname: "i.redd.it",
 			},
 			{
-				hostname: "mir-s3-cdn-cf.behance.net",
-			},
-			{
-				hostname: "69.media.tumblr.com",
-			},
+				hostname: "assets.tumblr.com",
+			}
 		],
 	},
 	// required for SharedArrayBuffer
