@@ -6,6 +6,14 @@ import { useLocalStorage } from "usehooks-ts";
 import { type TumblrUser, getUserInfo } from "~/lib/tumblr";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import { parse } from "dotenv";
+
+type TumblrEnv = {
+	CONSUMER_KEY: string;
+	CONSUMER_SECRET: string;
+	TOKEN: string;
+	TOKEN_SECRET: string;
+};
 
 function TumblrModal() {
 	const [consumerKey, setConsumerKey] = useLocalStorage<string | null>(
@@ -21,6 +29,45 @@ function TumblrModal() {
 		"token_secret",
 		null
 	);
+
+	const handlePaste = async () => {
+		const content = await navigator.clipboard.read().catch(() => {
+			toast("failed to read clipboard contents. are permissions given?", {
+				icon: "🚨",
+			});
+			return null;
+		});
+
+		if (!content) {
+			return;
+		}
+
+		const text = await (await content[0].getType("text/plain")).text();
+
+		const parsed = parse<TumblrEnv>(text);
+		if (
+			!parsed?.CONSUMER_KEY ||
+			!parsed?.CONSUMER_SECRET ||
+			!parsed?.TOKEN ||
+			!parsed?.TOKEN_SECRET
+		) {
+			toast(
+				"invalid env schema. keys must be: CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET",
+				{
+					icon: "🚨",
+				}
+			);
+			return;
+		}
+
+		const { CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET } =
+			parse<TumblrEnv>(text);
+
+		setConsumerKey(CONSUMER_KEY);
+		setConsumerSecret(CONSUMER_SECRET);
+		setToken(TOKEN);
+		setTokenSecret(TOKEN_SECRET);
+	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -131,9 +178,17 @@ function TumblrModal() {
 						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
 							✕
 						</button>
-						<button className="btn btn-primary" type="submit">
-							Submit
-						</button>
+						<div className="space-x-3">
+							<button
+								className="btn btn-neutral"
+								onClick={async () => await handlePaste()}
+							>
+								Paste from env
+							</button>
+							<button className="btn btn-primary" type="submit">
+								Submit
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -203,8 +258,6 @@ export default function TopNav() {
 		if (consumerKey && consumerSecret && token && tokenSecret) {
 			load();
 		}
-
-		console.log(consumerKey, consumerSecret, token, tokenSecret);
 
 		return () => {};
 	}, [consumerKey, consumerSecret, token, tokenSecret]);
