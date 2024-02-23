@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import ThemeController from './theme-controller';
 import { useLocalStorage } from 'usehooks-ts';
 import { type TumblrUser, getUserInfo } from '~/lib/tumblr';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { parse } from 'dotenv';
 import { useStore } from '~/lib/providers/StoreProvider';
+import RedditInput from './reddit/input';
 
 type TumblrEnv = {
 	CONSUMER_KEY: string;
@@ -17,10 +17,10 @@ type TumblrEnv = {
 };
 
 function TumblrModal() {
-	const [consumerKey, setConsumerKey] = useLocalStorage<string | null>('consumer_key', null);
-	const [consumerSecret, setConsumerSecret] = useLocalStorage<string | null>('consumer_secret', null);
-	const [token, setToken] = useLocalStorage<string | null>('token', null);
-	const [tokenSecret, setTokenSecret] = useLocalStorage<string | null>('token_secret', null);
+	const [, setConsumerKey] = useLocalStorage<string | null>('consumer_key', null);
+	const [, setConsumerSecret] = useLocalStorage<string | null>('consumer_secret', null);
+	const [, setToken] = useLocalStorage<string | null>('token', null);
+	const [, setTokenSecret] = useLocalStorage<string | null>('token_secret', null);
 
 	const handlePaste = async () => {
 		const content = await navigator.clipboard.read().catch(() => {
@@ -91,57 +91,57 @@ function TumblrModal() {
 	};
 
 	return (
-		<dialog id="sign_in_modal" className="modal">
-			<div className="modal-box">
-				<h3 className="text-lg font-bold">Tumblr OAuth Connection</h3>
-				<hr className="mt-3" />
-				<div className="space-y-3">
-					<label className="form-control w-full max-w-xs">
-						<div className="label">
-							<span className="label-text">Consumer key</span>
+		<dialog id='sign_in_modal' className='modal'>
+			<div className='modal-box'>
+				<h3 className='text-lg font-bold'>Tumblr OAuth Connection</h3>
+				<hr className='mt-3' />
+				<div className='space-y-3'>
+					<label className='form-control w-full max-w-xs'>
+						<div className='label'>
+							<span className='label-text'>Consumer key</span>
 						</div>
-						<input type="text" className="input input-sm input-bordered w-full max-w-xs" />
+						<input type='text' className='input input-sm input-bordered w-full max-w-xs' />
 					</label>
-					<label className="form-control w-full max-w-xs">
-						<div className="label">
-							<span className="label-text">Consumer secret</span>
+					<label className='form-control w-full max-w-xs'>
+						<div className='label'>
+							<span className='label-text'>Consumer secret</span>
 						</div>
-						<input type="text" className="input input-sm input-bordered w-full max-w-xs" />
+						<input type='text' className='input input-sm input-bordered w-full max-w-xs' />
 					</label>
-					<label className="form-control w-full max-w-xs">
-						<div className="label">
-							<span className="label-text">Token</span>
+					<label className='form-control w-full max-w-xs'>
+						<div className='label'>
+							<span className='label-text'>Token</span>
 						</div>
-						<input type="text" className="input input-sm input-bordered w-full max-w-xs" />
+						<input type='text' className='input input-sm input-bordered w-full max-w-xs' />
 					</label>
-					<label className="form-control w-full max-w-xs">
-						<div className="label">
-							<span className="label-text">Token secret</span>
+					<label className='form-control w-full max-w-xs'>
+						<div className='label'>
+							<span className='label-text'>Token secret</span>
 						</div>
-						<input type="text" className="input input-sm input-bordered w-full max-w-xs" />
+						<input type='text' className='input input-sm input-bordered w-full max-w-xs' />
 					</label>
 				</div>
-				<div className="mt-5">
+				<div className='mt-5'>
 					<div>
-						<span className="italic">Warning: All keys are stored locally!</span>
+						<span className='italic'>Warning: All keys are stored locally!</span>
 					</div>
 					<div>
 						<a
-							className="link"
+							className='link'
 							onClick={() => window.open('https://api.tumblr.com/console/calls/user/info', '', 'noreferrer noopener')}
 						>
 							Need help?
 						</a>
 					</div>
 				</div>
-				<div className="modal-action">
-					<form method="dialog" onSubmit={handleSubmit}>
-						<button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">✕</button>
-						<div className="space-x-3">
-							<button className="btn btn-neutral" onClick={async () => await handlePaste()}>
+				<div className='modal-action'>
+					<form method='dialog' onSubmit={handleSubmit}>
+						<button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>✕</button>
+						<div className='space-x-3'>
+							<button className='btn btn-neutral' onClick={async () => await handlePaste()}>
 								Paste from env
 							</button>
-							<button className="btn btn-primary" type="submit">
+							<button className='btn btn-primary' type='submit'>
 								Submit
 							</button>
 						</div>
@@ -154,12 +154,12 @@ function TumblrModal() {
 
 function AvatarPlaceholder(props: React.ComponentPropsWithoutRef<'svg'>) {
 	return (
-		<svg {...props} data-avatar-placeholder-icon viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg {...props} data-avatar-placeholder-icon viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
 			<path
-				d="M0.877014 7.49988C0.877014 3.84219 3.84216 0.877045 7.49985 0.877045C11.1575 0.877045 14.1227 3.84219 14.1227 7.49988C14.1227 11.1575 11.1575 14.1227 7.49985 14.1227C3.84216 14.1227 0.877014 11.1575 0.877014 7.49988ZM7.49985 1.82704C4.36683 1.82704 1.82701 4.36686 1.82701 7.49988C1.82701 8.97196 2.38774 10.3131 3.30727 11.3213C4.19074 9.94119 5.73818 9.02499 7.50023 9.02499C9.26206 9.02499 10.8093 9.94097 11.6929 11.3208C12.6121 10.3127 13.1727 8.97172 13.1727 7.49988C13.1727 4.36686 10.6328 1.82704 7.49985 1.82704ZM10.9818 11.9787C10.2839 10.7795 8.9857 9.97499 7.50023 9.97499C6.01458 9.97499 4.71624 10.7797 4.01845 11.9791C4.97952 12.7272 6.18765 13.1727 7.49985 13.1727C8.81227 13.1727 10.0206 12.727 10.9818 11.9787ZM5.14999 6.50487C5.14999 5.207 6.20212 4.15487 7.49999 4.15487C8.79786 4.15487 9.84999 5.207 9.84999 6.50487C9.84999 7.80274 8.79786 8.85487 7.49999 8.85487C6.20212 8.85487 5.14999 7.80274 5.14999 6.50487ZM7.49999 5.10487C6.72679 5.10487 6.09999 5.73167 6.09999 6.50487C6.09999 7.27807 6.72679 7.90487 7.49999 7.90487C8.27319 7.90487 8.89999 7.27807 8.89999 6.50487C8.89999 5.73167 8.27319 5.10487 7.49999 5.10487Z"
-				fill="currentColor"
-				fillRule="evenodd"
-				clipRule="evenodd"
+				d='M0.877014 7.49988C0.877014 3.84219 3.84216 0.877045 7.49985 0.877045C11.1575 0.877045 14.1227 3.84219 14.1227 7.49988C14.1227 11.1575 11.1575 14.1227 7.49985 14.1227C3.84216 14.1227 0.877014 11.1575 0.877014 7.49988ZM7.49985 1.82704C4.36683 1.82704 1.82701 4.36686 1.82701 7.49988C1.82701 8.97196 2.38774 10.3131 3.30727 11.3213C4.19074 9.94119 5.73818 9.02499 7.50023 9.02499C9.26206 9.02499 10.8093 9.94097 11.6929 11.3208C12.6121 10.3127 13.1727 8.97172 13.1727 7.49988C13.1727 4.36686 10.6328 1.82704 7.49985 1.82704ZM10.9818 11.9787C10.2839 10.7795 8.9857 9.97499 7.50023 9.97499C6.01458 9.97499 4.71624 10.7797 4.01845 11.9791C4.97952 12.7272 6.18765 13.1727 7.49985 13.1727C8.81227 13.1727 10.0206 12.727 10.9818 11.9787ZM5.14999 6.50487C5.14999 5.207 6.20212 4.15487 7.49999 4.15487C8.79786 4.15487 9.84999 5.207 9.84999 6.50487C9.84999 7.80274 8.79786 8.85487 7.49999 8.85487C6.20212 8.85487 5.14999 7.80274 5.14999 6.50487ZM7.49999 5.10487C6.72679 5.10487 6.09999 5.73167 6.09999 6.50487C6.09999 7.27807 6.72679 7.90487 7.49999 7.90487C8.27319 7.90487 8.89999 7.27807 8.89999 6.50487C8.89999 5.73167 8.27319 5.10487 7.49999 5.10487Z'
+				fill='currentColor'
+				fillRule='evenodd'
+				clipRule='evenodd'
 			/>
 		</svg>
 	);
@@ -219,12 +219,15 @@ export default function TopNav() {
 	return (
 		<>
 			<TumblrModal />
-			<div className="navbar">
-				<div className="flex-1">
-					<span className="mx-3 text-xl font-bold">Crossposter</span>
+			<div className='navbar'>
+				<div className='flex-1'>
+					<span className='mx-3 text-xl font-bold'>Crossposter</span>
+					<RedditInput />
+				</div>
+				<div className='flex-none gap-2'>
 					{!!user && (
-						<div className="mx-auto flex items-center justify-center">
-							<select className="select select-bordered select-sm w-full max-w-xs" onChange={handleChange}>
+						<div className='mx-auto flex items-center justify-center'>
+							<select className='select select-bordered select-sm w-full max-w-xs' onChange={handleChange}>
 								{user.blogs.map((blog) => {
 									return (
 										<option key={blog.name} value={blog.name}>
@@ -235,14 +238,9 @@ export default function TopNav() {
 							</select>
 						</div>
 					)}
-				</div>
-				<div className="flex-2 mx-5">
-					<ThemeController />
-				</div>
-				<div className="flex-none gap-2">
-					<div className="dropdown dropdown-end">
-						<div tabIndex={0} role="button" className="avatar btn btn-circle btn-ghost">
-							<div className="w-10 rounded-full">
+					<div className='dropdown dropdown-end'>
+						<div tabIndex={0} role='button' className='avatar btn btn-circle btn-ghost'>
+							<div className='w-10 rounded-full'>
 								{!!user ? (
 									<Image src={user.blogs[0].avatar[3].url} alt={user.name} width={40} height={40} priority />
 								) : (
@@ -252,7 +250,7 @@ export default function TopNav() {
 						</div>
 						<ul
 							tabIndex={0}
-							className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+							className='menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow'
 						>
 							{!!user ? (
 								<>

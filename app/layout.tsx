@@ -9,13 +9,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang='en'>
 			<head>
-				<meta name="viewport" content="initial-scale=1, width=device-width" />
+				<meta name='viewport' content='initial-scale=1, width=device-width' />
 			</head>
 			<body>
 				<StoreProvider>{children}</StoreProvider>
-				<Toaster position="top-left" />
+				<Toaster position='bottom-right' reverseOrder={true} />
 			</body>
 		</html>
 	);
