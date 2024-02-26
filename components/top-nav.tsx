@@ -222,7 +222,7 @@ export default function TopNav() {
 			<div className='navbar'>
 				<div className='flex-1'>
 					<span className='mx-3 text-xl font-bold'>Crossposter</span>
-					<RedditInput />
+					{!!user && <RedditInput />}
 				</div>
 				<div className='flex-none gap-2'>
 					{!!user && (
