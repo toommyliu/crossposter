@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import {
 	AlertDialog,
@@ -10,7 +11,8 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-	AlertDialogTrigger
+	AlertDialogTrigger,
+	AlertDialogCancel
 } from "~/components/ui/alert-dialog";
 import { Button } from "~/components/ui/button";
 import {
@@ -27,14 +29,13 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "~/components/ui/select";
-import { toast } from "sonner";
 import { useStore } from "~/lib/providers/StoreProvider";
 import { log } from "~/lib/utils";
 
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
-import { TumblrLimits, createPost, getLimits } from "~/lib/tumblr";
 import { useAuth } from "~/lib/hooks/useAuth";
+import { TumblrLimits, createPost, getLimits } from "~/lib/tumblr";
 
 const formSchema = z.object({
 	blog: z.string().min(1)
@@ -425,13 +426,17 @@ export default function ActionRow() {
 								)}
 							/>
 							<AlertDialogFooter className="mt-4">
-								<Button
-									onClick={() => setOpen(false)}
-									variant="ghost"
-								>
-									cancel
+								<AlertDialogCancel asChild>
+									<Button
+										onClick={() => setOpen(false)}
+										variant="ghost"
+									>
+										cancel
+									</Button>
+								</AlertDialogCancel>
+								<Button type="submit" variant="outline">
+									start
 								</Button>
-								<Button type="submit" variant="outline">start</Button>
 							</AlertDialogFooter>
 						</form>
 					</Form>
