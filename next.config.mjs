@@ -21,7 +21,7 @@ const nextConfig = {
 					{ key: "Access-Control-Allow-Credentials", value: "true" },
 					{
 						key: "Access-Control-Allow-Origin",
-						value: "https://elegant-biscotti-a4f022.netlify.app/reddit"
+						value: "*"
 					},
 					{
 						key: "Access-Control-Allow-Methods",
@@ -40,6 +40,14 @@ const nextConfig = {
 						value: "same-origin"
 					}
 				]
+			}
+		];
+	},
+	async rewrites() {
+		return [
+			{
+				source: "i.reddit.com/:path",
+				destination: "https://cors-anywhere.herokuapp.com/:path"
 			}
 		];
 	},
