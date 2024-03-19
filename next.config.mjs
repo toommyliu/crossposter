@@ -19,7 +19,6 @@ const nextConfig = {
 			{
 				source: "/(.*)",
 				headers: [
-					},
 					{
 						key: "Cross-Origin-Embedder-Policy",
 						value: "require-corp"
