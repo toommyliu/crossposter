@@ -19,16 +19,6 @@ const nextConfig = {
 			{
 				source: "/(.*)",
 				headers: [
-					{
-						key: "Access-Control-Allow-Origin",
-						value:
-							process.env.NODE_ENV === "development"
-								? "localhost:3000"
-								: "crossposter-reddit-to-tumblr.vercel.app"
-					},
-					{
-						key: "Access-Control-Allow-Methods",
-						value: "GET"
 					},
 					{
 						key: "Cross-Origin-Embedder-Policy",
