@@ -16,7 +16,7 @@ export default function RedditPage() {
 		async function get() {
 			setPosts([]);
 
-			const loading = toast.loading(`loading posts for "${username}."`);
+			const loading = toast.loading(`loading posts for "${username}".`);
 
 			const posts = await makeRequest(username!)
 				.then((posts) => {

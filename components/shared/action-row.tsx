@@ -147,9 +147,7 @@ export default function ActionRow() {
 
 		// only allow crosspost if they have both available
 		if (videosLimit === 0 || imagesLimit === 0) {
-			toast.error(
-				`no more posts allowed.\nvideos: ${videosLimit}\nimages: ${imagesLimit}`
-			);
+			toast.warning("no more posts allowed.");
 			log("no more posts allowed.");
 			return;
 		}
@@ -178,8 +176,8 @@ export default function ActionRow() {
 
 			// if either limit is reached, exit
 			if (videoCount === 0 || imageCount === 0) {
-				toast.error("no more posts allowed.");
-				log("either limit hit, stopping");
+				toast.error("either limit hit, stopping.");
+				log("either limit hit, stopping.");
 				break;
 			}
 
