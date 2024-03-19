@@ -34,15 +34,6 @@ export default function TopNav() {
 					>
 						reddit
 					</Link>
-					<Link
-						href="/instagram"
-						className={cn("text-xl font-bold hover:text-blue-400", {
-							"bg-gradient-to-br from-[#833ab4] via-[#fd1d1d] to-[#fcb045] bg-clip-text text-transparent":
-								path === "/instagram"
-						})}
-					>
-						instagram
-					</Link>
 				</div>
 				<div className="flex items-center space-x-4">
 					<ThemeChanger />
