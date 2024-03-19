@@ -252,6 +252,8 @@ export default function ActionRow() {
 					// videos need time to process
 					await sleep(duration);
 
+					toast.dismiss(id);
+
 					log("after (1)");
 
 					videoCount--;
@@ -298,6 +300,8 @@ export default function ActionRow() {
 
 					log("after (2)");
 
+					toast.dismiss(id);
+
 					imageCount--;
 
 					setPosts(
@@ -314,8 +318,6 @@ export default function ActionRow() {
 					log(msg);
 				}
 			}
-
-			toast.dismiss(id);
 		}
 
 		toast.success("done.");
@@ -424,12 +426,12 @@ export default function ActionRow() {
 							/>
 							<AlertDialogFooter className="mt-4">
 								<Button
-									variant="secondary"
 									onClick={() => setOpen(false)}
+									variant="ghost"
 								>
 									cancel
 								</Button>
-								<Button type="submit">start</Button>
+								<Button type="submit" variant="outline">start</Button>
 							</AlertDialogFooter>
 						</form>
 					</Form>
