@@ -14,7 +14,6 @@ const nextConfig = {
 	},
 	// required for SharedArrayBuffer (ffmpeg.wasm)
 	async headers() {
-		console.log(process.env);
 		return [
 			{
 				source: "/(.*)",
