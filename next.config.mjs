@@ -18,6 +18,7 @@ const nextConfig = {
 			{
 				source: "/(.*)",
 				headers: [
+					{ key: "Access-Control-Allow-Origin", value: "*" },
 					{
 						key: "Cross-Origin-Embedder-Policy",
 						value: "require-corp"
@@ -27,10 +28,6 @@ const nextConfig = {
 						value: "same-origin"
 					}
 				]
-			},
-			{
-				source: "/reddit/(.*)",
-				headers: [{ key: "Access-Control-Allow-Origin", value: "*" }]
 			}
 		];
 	},
