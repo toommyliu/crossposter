@@ -46,7 +46,7 @@ const nextConfig = {
 	async rewrites() {
 		return [
 			{
-				source: "i.reddit.com/:path",
+				source: "/(.*)",
 				destination: "https://cors-anywhere.herokuapp.com/:path"
 			}
 		];
