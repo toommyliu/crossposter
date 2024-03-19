@@ -27,6 +27,10 @@ const nextConfig = {
 						value: "same-origin"
 					}
 				]
+			},
+			{
+				source: "/reddit/(.*)",
+				headers: [{ key: "Access-Control-Allow-Origin", value: "*" }]
 			}
 		];
 	},
