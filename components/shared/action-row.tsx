@@ -441,16 +441,16 @@ export default function ActionRow() {
 				</AlertDialogContent>
 			</AlertDialog>
 
-			<Button variant="secondary" onClick={handleShuffle}>
+			<Button variant="secondary" disabled={posts.length === 0} onClick={handleShuffle}>
 				shuffle
 			</Button>
-			<Button variant="secondary" onClick={handleSave}>
+			<Button variant="secondary" disabled={posts.length === 0} onClick={handleSave}>
 				save
 			</Button>
 			<Button variant="secondary" onClick={async () => await limits()}>
 				get limits
 			</Button>
-			<Button variant="secondary" onClick={handleSelect}>
+			<Button variant="secondary" disabled={posts.length === 0} onClick={handleSelect}>
 				{selectAll ? "deselect" : "select"} all
 			</Button>
 		</div>
