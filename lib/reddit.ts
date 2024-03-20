@@ -1,6 +1,7 @@
 "use client";
 
 import type { Post } from "./stores/store";
+import { log } from "./utils";
 
 export async function makeRequest(username: string) {
 	const posts: Post[] = [];
@@ -16,7 +17,7 @@ export async function makeRequest(username: string) {
 
 		reqUrl.searchParams.append("raw_json", "1");
 
-		console.log(`making request to: ${reqUrl.toString()}`);
+		log(`making request to: ${reqUrl.toString()}`);
 
 		await new Promise((resolve) => setTimeout(resolve, 7_500));
 
