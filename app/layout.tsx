@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 
+import { Inter } from "next/font/google";
 import { Toaster } from "~/components/ui/sonner";
 import { StoreProvider } from "~/lib/providers/StoreProvider";
 import { ThemeProvider } from "~/components/theme-provider";
@@ -10,13 +11,15 @@ export const metadata = {
 	description: "Easily crosspost media from Reddit to Tumblr"
 };
 
+const inter = Inter();
+
 export default function RootLayout({
 	children
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en" className={inter.className} suppressHydrationWarning>
 			<head>
 				<meta
 					name="viewport"
