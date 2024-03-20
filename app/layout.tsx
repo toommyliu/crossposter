@@ -11,7 +11,9 @@ export const metadata = {
 	description: "Easily crosspost media from Reddit to Tumblr"
 };
 
-const inter = Inter();
+const inter = Inter({
+	subsets: []
+});
 
 export default function RootLayout({
 	children
